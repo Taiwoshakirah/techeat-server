@@ -1,4 +1,5 @@
 const Subscribe = require("../models/subscribe");
+const sendEmail = require('../utils/sendEmail');
 
 const subscription = async (req, res) => {
   const { email } = req.body;
@@ -12,7 +13,14 @@ const subscription = async (req, res) => {
     return res.status(400).json({ message: "Already subscribed" });
   }
 
-  await Subscribe.create({email})
+  const options ={
+    email: email,
+    subject: 'Thanks for subscribing',
+    text: "Welcome to our community!!"
+  }
+
+  await Subscribe.create({email});
+  await sendEmail(options);
   res.status(200).json({ message: "Subscribed successfully" });
 };
 

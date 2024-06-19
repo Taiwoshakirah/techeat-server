@@ -23,7 +23,12 @@ const registerUser = async (req, res, next) => {
       expiresIn: "3d",
     });
 
-    sendEmail(email, "Welcome to techeat", `Hi ${name}, Your registration is successful. It's nice to have you onboard.`)
+    const options = {
+      email: email,
+      subject: 'Welcome to Techeat',
+      text: 'Welcome To TechEat'
+    };
+    sendEmail(options)
     res.json({
       message: "Success",
       user: { name: user.name, email: user.email },
@@ -100,7 +105,12 @@ const forgotPassword = async (req, res, next) => {
     await user.save();
 
     const resetUrl = `http://localhost:${process.env.PORT}/api/auth/reset-password/${resetToken}`;
-    await sendEmail(email, 'Password Reset Request', `Please click on the following link to reset your password: ${resetUrl}`);
+     const options = {
+      email: email,
+      subject: 'ResetPassword',
+      text: `This is the url to reset your password ${resetUrl}`
+     }
+    await sendEmail(options);
 
     res.status(200).json({ message: 'Password reset link sent to your email' });
   } catch (error) {
