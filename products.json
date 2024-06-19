@@ -1,0 +1,21 @@
+[
+    {
+      "name": "Jollof Rice",
+      "price": 1500,
+      "available": true,
+      "image": "image url"
+    },
+    {
+      "name": "Egusi Soup",
+      "price": 2000,
+      "available": true,
+      "image": "image url"
+    },
+    {
+      "name": "Pounded Yam",
+      "price": 1000,
+      "available": true,
+      "image": "image url"
+    }
+  ]
+      
