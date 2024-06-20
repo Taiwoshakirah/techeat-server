@@ -50,7 +50,7 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.generatePasswordResetToken = function () {
   const resetToken = crypto.randomBytes(20).toString('hex');
   this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
-  this.resetPasswordExpires = Date.now() + 3600000; // Token expires in 1 hour
+  this.resetPasswordExpires = Date.now() + 10 * 60 * 1000; // Token expires in 10 minutes
   return resetToken;
 };
 

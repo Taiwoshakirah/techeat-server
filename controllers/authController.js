@@ -28,7 +28,10 @@ const registerUser = async (req, res, next) => {
       subject: 'Welcome to Techeat',
       text: 'Welcome To TechEat'
     };
-    sendEmail(options)
+
+   
+      await sendEmail(options); // Await the sendEmail function
+
     res.json({
       message: "Success",
       user: { name: user.name, email: user.email },
@@ -110,9 +113,14 @@ const forgotPassword = async (req, res, next) => {
       subject: 'ResetPassword',
       text: `This is the url to reset your password ${resetUrl}`
      }
-    await sendEmail(options);
+    try {
+      await sendEmail(options);
 
     res.status(200).json({ message: 'Password reset link sent to your email' });
+    } catch (emailError) {
+      console.error('Error sending email:', emailError);
+      res.status(500).json({ message: 'Error sending password reset email' });
+    }
   } catch (error) {
     console.error('Error in forgotPassword:', error);
     res.status(500).json({ message: 'Internal Server Error' });
