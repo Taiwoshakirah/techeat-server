@@ -125,6 +125,8 @@ const forgotPassword = async (req, res, next) => {
     console.error('Error in forgotPassword:', error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
+
+  
 };
 
 const resetPassword = async (req, res, next) => {
