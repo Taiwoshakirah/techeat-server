@@ -5,7 +5,6 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
     match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Please provide an email"],
-    unique: true,
   },
   name: {
     type: String,
