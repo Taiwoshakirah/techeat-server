@@ -8,7 +8,7 @@ const contactLogic = async (req, res) => {
     return res.status(400).json({message:"All fields are required"})
   }
 
- await Contact.create({name, email, message})
+ await Contact.create({name, email, message}) 
   try {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
