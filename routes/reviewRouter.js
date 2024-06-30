@@ -4,6 +4,6 @@ const router = express.Router({mergeParams:true})
 const verify = require('../middlewares/verifytoken')
 const {protect, authorize} = require('../middlewares/auth')
 
-router.route('/add-review/:id').post(protect, addReview)
+router.route('/add-review/:productId').post(protect, addReview)
 
 module.exports = router
