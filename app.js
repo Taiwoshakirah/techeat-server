@@ -16,7 +16,7 @@ const cartRouter = require('./routes/cartRouter')
 
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); 
 app.use(cookieParser())
 app.use("/api/auth", authRouter);
 app.use('/api/vendor',vendorRouter)
