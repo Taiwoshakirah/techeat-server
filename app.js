@@ -12,6 +12,7 @@ const discountRouter = require('./routes/discountRouter')
 const contactUsRouter = require('./routes/contactUsRouter')
 const vendorRouter = require('./routes/vendorRouter')
 const reviewRouter = require('./routes/reviewRouter')
+const cartRouter = require('./routes/cartRouter')
 
 
 app.use(cors());
@@ -23,6 +24,7 @@ app.use("/api", subRouter);
 app.use("/api", discountRouter);
 app.use("/api", contactUsRouter);
 app.use('/api/review',reviewRouter)
+app.use('/api/products', cartRouter)
 
 
 

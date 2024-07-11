@@ -22,4 +22,24 @@ const addReview = async (req, res, next) => {
     }
 }
 
-module.exports = {addReview}
+
+    const getReview = async (req, res) => {
+        try {
+            const { productId } = req.product; // destructure productId to Ensure you have the productId from req.product
+            if (!req.product) {
+                return res.status(400).json({ message: "Product information is missing in the request" });
+            }
+            const review = await Review.findOne({ product: productId }); // Find the review by product id
+    
+            if (!review) {
+                return res.status(400).json({ message: "No review for this product" });
+            }
+    
+            res.status(200).json(review); // Return the review if found
+        } catch (error) {
+            res.status(500).json({ message: "Server error", error: error.message }); // Handle server errors
+        }
+    };
+
+
+module.exports = {addReview,getReview}
