@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const { type } = require('os');
+
 
 const userSchema = new mongoose.Schema({
   name: {

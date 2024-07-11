@@ -6,7 +6,7 @@ const sendEmail = require('../utils/sendEmail')
 
 
 const registerUser = async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password} = req.body;
 
   if (!email || !password || !name) {
     return res.status(401).json({ success: false, message: "Input all fields" });
@@ -34,7 +34,7 @@ const registerUser = async (req, res, next) => {
 
     res.json({
       message: "Success",
-      user: { name: user.name, email: user.email },
+      data: user,
       token,
       
     });
