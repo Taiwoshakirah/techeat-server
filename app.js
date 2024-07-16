@@ -6,6 +6,8 @@ const app = express()
 require ('dotenv').config()
 port = 3000
 
+app.use(cors());
+
 const authRouter = require('./routes/authRouter')
 const subRouter = require('./routes/subRouter')
 const discountRouter = require('./routes/discountRouter')
@@ -15,7 +17,6 @@ const reviewRouter = require('./routes/reviewRouter')
 const cartRouter = require('./routes/cartRouter')
 
 
-app.use(cors());
 app.use(express.json()); 
 app.use(cookieParser())
 app.use("/api/auth", authRouter);
