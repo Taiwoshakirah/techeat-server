@@ -30,7 +30,7 @@ const registerUser = async (req, res, next) => {
     };
 
    
-      await sendEmail(options); // Await the sendEmail function
+      await sendEmail(options); 
 
     res.json({
       message: "Success",
