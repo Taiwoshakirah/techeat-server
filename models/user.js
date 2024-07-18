@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide a password"],
   },
+  profilePhoto: {
+    type: String,
+    default:
+      "https://res.cloudinary.com/ceenobi/image/upload/v1709243852/icons/unnamed_fuwmdn.webp",
+  },
 
   newUser:{
      type:Boolean,

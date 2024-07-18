@@ -15,6 +15,7 @@ const contactUsRouter = require('./routes/contactUsRouter')
 const vendorRouter = require('./routes/vendorRouter')
 const reviewRouter = require('./routes/reviewRouter')
 const cartRouter = require('./routes/cartRouter')
+const orderRouter = require('./routes/orderRouter')
 
 
 app.use(express.json()); 
@@ -26,6 +27,7 @@ app.use("/api", discountRouter);
 app.use("/api", contactUsRouter);
 app.use('/api/review',reviewRouter)
 app.use('/api/products', cartRouter)
+app.use('/api',orderRouter)
 
 
 

@@ -77,21 +77,30 @@ const signInUser = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  const { userId } = req.user;
-  const user = await User.findOne({ _id: userId });
+  try {
+    const { userId } = req.user;
+    const user = await User.findOne({ _id: userId });
 
-  res.status(200).json({
-    message: "Authenticated",
-    user: {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-    },
-  });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "Authenticated",
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
 };
 
+
 const forgotPassword = async (req, res, next) => {
-  console.log('Request Body:', req.body); // Log request body for debugging
+  console.log('Request Body:', req.body); 
   const { email } = req.body;
 
   if (!email) {
