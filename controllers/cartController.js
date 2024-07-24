@@ -33,7 +33,13 @@ const addCart = (req, res) => {
 
 
 const viewCart = (req, res) => {
-  Cart.find()
+  const { userId } = req.body; // Assuming the userId is passed in the request body
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
+  Cart.find({ userId })
     .then(cartItems => {
       res.status(200).json({ message: "Cart items retrieved successfully", cart: cartItems });
     })
@@ -42,6 +48,7 @@ const viewCart = (req, res) => {
       res.status(500).json({ message: "Error retrieving cart items" });
     });
 };
+
 
 const updateCart = (req, res) => {
     const { productId } = req.params;
