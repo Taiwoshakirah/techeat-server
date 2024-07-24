@@ -1,88 +1,285 @@
 [
-    {
-      "name": "Jollof Rice",
-       "description": "Grace Kitchen",
-      "price": 4500,
-      "available": true,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxAOmFhZ8mUliOptnIx3SpyW2oITtDr4bN1g&s"
-    },
-    {
-      "name": "Egusi Soup",
-       "description": "Grace Kitchen",
-      "price": 2000,
-      "available": true,
-      "image": "https://www.palfredgrills.ng/wp-content/uploads/2023/05/Pounded-Yam-with-Egusi-Soup-and-Goat-Meat.jpg"
-    },
-    {
-      "name": "Yam Porridge",
-       "description": "Grace Kitchen",
-      "price": 1000,
-      "available": true,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDhBSGaWaFizVKeVRAhzXhRxMKqmv8lP2f_A&s"
-    },
-
-    {
-      "name": "Roasted Chicken",
-      "description": "Grace Kitchen",
-      "price": 6600,
-      "image": "https://thecleaneatingcouple.com/wp-content/uploads/2021/10/roasted-chicken-1.jpg"
-    },
-    {
-      "name": "Jollof Rice",
-      "description": "Grace Kitchen",
-      "price": 5000,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrylJIJEBxXRG7xC8Emnvm83GjIwMRU2ES1Q&s"
-    },
-    {
-      "name": "Grilled Fish",
-      "description": "Grace Kitchen",
-      "price": 7000,
-      "image": "https://i.ytimg.com/vi/1LtXG6CQmZc/maxresdefault.jpg"
-    },
-    {
-      "name": "Vegetable Salad",
-      "description": "Grace Kitchen",
-      "price": 4000,
-      "image": "https://cdn.jwplayer.com/v2/media/wGEqBtuf/thumbnails/qSXwlEH3.jpg"
-    },
-    {
-      "name": "Pasta Bolognese",
-      "description": "Grace Kitchen",
-      "price": 6500,
-      "image": "https://api.campbellsmeat.com/wp-content/uploads/2020/10/1602145295bolog-1.png"
-    },
-    {
-      "name": "Beef Steak",
-      "description": "Grace Kitchen",
-      "price": 9000,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0_UxaJ31o2F0YEBe6ROkI1-RkyCf4q1v6qA&s"
-    },
-    {
-      "name": "Chicken Curry",
-      "description": "Grace Kitchen",
-      "price": 6000,
-      "image": "https://www.manilaspoon.com/wp-content/uploads/2019/03/Chicken-Coconut-Curry-1-1-500x500.jpg"
-    },
-    {
-      "name": "Seafood Platter",
-      "description": "Grace Kitchen",
-      "price": 12000,
-      "image": "https://stemandspoon.com/wp-content/uploads/2022/11/seafood-charcuterie-board-featured-720x720.jpg"
-    },
-    {
-      "name": "Burger and Fries",
-      "description": "Grace Kitchen",
-      "price": 4500,
-      "image": "https://media.istockphoto.com/id/618630648/photo/homemade-cheese-smash-burger.jpg?s=612x612&w=0&k=20&c=OGgJ0M1_omgjTOrpz_uRt2S48BiHVUrGNg57Qc4ljuA="
-    },
-    {
-      "name": "Vegetarian Pizza",
-      "description": "Grace Kitchen",
-      "price": 8000,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzwJ6xWs4Iqf_B1OEBrEwaSOCJMcvw-SiEKQ&s"
-      
-    }
-  ]
- 
-  
-      
+  {
+    "name": "Jollof Rice",
+    "description": "Grace Kitchen",
+    "price": 4500,
+    "available": true,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxAOmFhZ8mUliOptnIx3SpyW2oITtDr4bN1g&s",
+    "rating": 4,
+    "quantity": 20,
+    "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Egusi Soup",
+    "description": "Grace Kitchen",
+    "price": 2000,
+    "available": true,
+    "image": "https://www.palfredgrills.ng/wp-content/uploads/2023/05/Pounded-Yam-with-Egusi-Soup-and-Goat-Meat.jpg",
+    "rating": 5,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Yam Porridge",
+    "description": "Grace Kitchen",
+    "price": 1000,
+    "available": true,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDhBSGaWaFizVKeVRAhzXhRxMKqmv8lP2f_A&s",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Roasted Chicken",
+    "description": "Grace Kitchen",
+    "price": 6600,
+    "image": "https://thecleaneatingcouple.com/wp-content/uploads/2021/10/roasted-chicken-1.jpg",
+    "rating": 4,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Jollof Rice",
+    "description": "Grace Kitchen",
+    "price": 5000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrylJIJEBxXRG7xC8Emnvm83GjIwMRU2ES1Q&s",
+    "rating": 4,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Grilled Fish",
+    "description": "Grace Kitchen",
+    "price": 7000,
+    "image": "https://i.ytimg.com/vi/1LtXG6CQmZc/maxresdefault.jpg",
+    "rating": 5,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Vegetable Salad",
+    "description": "Grace Kitchen",
+    "price": 4000,
+    "image": "https://cdn.jwplayer.com/v2/media/wGEqBtuf/thumbnails/qSXwlEH3.jpg",
+    "rating": 4,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Pasta Bolognese",
+    "description": "Grace Kitchen",
+    "price": 6500,
+    "image": "https://api.campbellsmeat.com/wp-content/uploads/2020/10/1602145295bolog-1.png",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Beef Steak",
+    "description": "Grace Kitchen",
+    "price": 9000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0_UxaJ31o2F0YEBe6ROkI1-RkyCf4q1v6qA&s",
+    "rating": 5,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Chicken Curry",
+    "description": "Grace Kitchen",
+    "price": 6000,
+    "image": "https://www.manilaspoon.com/wp-content/uploads/2019/03/Chicken-Coconut-Curry-1-1-500x500.jpg",
+    "rating": 4,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Seafood Platter",
+    "description": "Grace Kitchen",
+    "price": 12000,
+    "image": "https://stemandspoon.com/wp-content/uploads/2022/11/seafood-charcuterie-board-featured-720x720.jpg",
+    "rating": 5,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Burger and Fries",
+    "description": "Grace Kitchen",
+    "price": 4500,
+    "image": "https://media.istockphoto.com/id/618630648/photo/homemade-cheese-smash-burger.jpg?s=612x612&w=0&k=20&c=OGgJ0M1_omgjTOrpz_uRt2S48BiHVUrGNg57Qc4ljuA=",
+    "rating": 4,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Vegetarian Pizza",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzwJ6xWs4Iqf_B1OEBrEwaSOCJMcvw-SiEKQ&s",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Afang",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://i.pinimg.com/originals/37/b6/68/37b668ab9b196d4b908214707fbbfa8d.jpg",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Seafood Okro",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKkVpZWMmD8bvEixrJHIfcDLWSoS7nd3KvKA&s",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Peppered Snail",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZp24rYX4DsA3T__NUxBmkZ4n3B0MjwZ7jlw&s",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Beans Pottage",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://s3-media0.fl.yelpcdn.com/bphoto/wrZbjRDr76JWBc5Sj3tCIg/348s.jpg",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Village Rice",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdrMW5mzng6fWGjKptkvs0kTimO5LRzjO-oA&s",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Local Rice",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Ofada_rise_with_fried_plantain_and_beaf.jpg",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Ofada Rice",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://lyndishes.com/wp-content/uploads/2020/09/WhatsApp-Image-2020-09-16-at-8.48.35-AM.jpeg",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Ofada Rice",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzwJ6xWs4Iqf_B1OEBrEwaSOCJMcvw-SiEKQ&s",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Ofada Rice",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://thecleaneatingcouple.com/wp-content/uploads/2021/10/roasted-chicken-1.jpg",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Ofada Rice",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://media.istockphoto.com/id/618630648/photo/homemade-cheese-smash-burger.jpg?s=612x612&w=0&k=20&c=OGgJ0M1_omgjTOrpz_uRt2S48BiHVUrGNg57Qc4ljuA=",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Vegetarian Pizza",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzwJ6xWs4Iqf_B1OEBrEwaSOCJMcvw-SiEKQ&s",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Afang",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://i.pinimg.com/originals/37/b6/68/37b668ab9b196d4b908214707fbbfa8d.jpg",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Seafood Okro",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKkVpZWMmD8bvEixrJHIfcDLWSoS7nd3KvKA&s",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Peppered Snail",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZp24rYX4DsA3T__NUxBmkZ4n3B0MjwZ7jlw&s",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  },
+  {
+    "name": "Beans Pottage",
+    "description": "Grace Kitchen",
+    "price": 8000,
+    "image": "https://s3-media0.fl.yelpcdn.com/bphoto/wrZbjRDr76JWBc5Sj3tCIg/348s.jpg",
+    "rating": 3,
+    "quantity": 20,
+     "ratingStar":"https://st2.depositphotos.com/1216158/45806/v/450/depositphotos_458068190-stock-illustration-star-shape-star-icon-reward.jpg",
+    "norating":"https://www.svgrepo.com/show/418551/star-rating.svg"
+  }
+]

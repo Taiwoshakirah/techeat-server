@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
   profilePhoto: {
     type: String,
     default:
-      "https://res.cloudinary.com/ceenobi/image/upload/v1709243852/icons/unnamed_fuwmdn.webp",
+      "https://res.cloudinary.com/dqmt1ggqu/image/upload/v1721757584/techeatavatar_sucdel.png",
   },
 
   newUser:{
