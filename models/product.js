@@ -22,7 +22,18 @@ const productSchema = new mongoose.Schema({
     available:{
         type:Boolean,
         default: true
-    }
+    },
+    rating: {
+        type: Number,
+        min: 0,
+        max: 5,
+        default: 0
+      },
+      quantity: {
+        type: Number,
+        required: true,
+        default: 0
+      }
 })
 
 module.exports = mongoose.model('Products',productSchema)
