@@ -1,4 +1,4 @@
-// controllers/orderController.js
+
 const Order = require('../models/order');
 const User = require('../models/user');
 const Products = require('../models/product')
@@ -31,14 +31,10 @@ const getOrder = async (req, res) => {
 const getUserOrders = async (req, res) => {
   try {
     const userId = req.params.userId;
-
-    // Fetch user details
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-
-    // Fetch orders for the user and populate product details
     const orders = await Order.find({ userId })
       .populate({
         path: 'items.productId',
@@ -48,13 +44,11 @@ const getUserOrders = async (req, res) => {
     if (!orders || orders.length === 0) {
       return res.status(404).json({ error: 'No orders found for this user' });
     }
-    // Construct response
     const response = {
       user: {
         id: user._id,
         name: user.name,
         email: user.email,
-        // other user fields
       },
       orders: orders.map(order => ({
         id: order._id,
@@ -67,7 +61,7 @@ const getUserOrders = async (req, res) => {
           quantity: item.quantity,
           status: item.status
         })),
-        // other order fields
+        
       })),
     };
 
