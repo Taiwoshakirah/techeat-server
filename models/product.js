@@ -14,7 +14,6 @@ const productSchema = new mongoose.Schema({
     image:{
         type:String,
         required:true,
-
     },
     description:{
         type:String,
@@ -32,7 +31,7 @@ const productSchema = new mongoose.Schema({
       quantity: {
         type: Number,
         required: true,
-        default: 0
+        default: 1
       }
 })
 

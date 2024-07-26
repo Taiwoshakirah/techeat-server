@@ -4,7 +4,7 @@ const fs = require("fs");
 const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
-// const productData = require('./products.json')
+
 
 mongoose.connect(process.env.MONGO_URI);
 
