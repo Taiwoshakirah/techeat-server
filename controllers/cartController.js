@@ -6,32 +6,37 @@ const Products = require("../models/product");
 const PAYSTACK_BASE_URL = "https://api.paystack.co";
 
 const addCart = async (req, res) => {
-  const { userId, item } = req.body;
-
-  if (!userId || !item) {
-    return res.status(400).json({ message: "userId and item are required" });
-  }
-
-  if (!mongoose.Types.ObjectId.isValid(item.productId)) {
-    return res.status(400).json({ message: `Invalid productId format: ${item.productId}` });
+  const { userId, items } = req.body;
+  if (!userId || !items || !Array.isArray(items)) {
+    return res
+      .status(400)
+      .json({ message: "All fields are required and items must be an array" });
   }
 
   try {
-    const productId = new mongoose.Types.ObjectId(item.productId);
-    const product = await Products.findById(productId);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    
-    item.price = product.price;
-    const totalAmount = item.price * item.quantity;
+    let totalAmount = 0;
+    for (let item of items) {
+      if (!mongoose.Types.ObjectId.isValid(item.productId)) {
+        return res
+          .status(400)
+          .json({ message: `Invalid productId format: ${item.productId}` });
+      }
 
-    const cart = new Cart({ userId, item, totalAmount });
+      const product = await Products.findById(item.productId);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      item.price = product.price;
+      totalAmount += product.price * item.quantity;
+    }
+    const cart = new Cart({ userId, items, totalAmount });
     await cart.save();
 
     res.status(201).json(cart);
   } catch (error) {
-    res.status(500).json({ message: "Error creating cart", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error creating cart", error: error.message });
   }
 };
 
@@ -66,36 +71,44 @@ const updateCart = async (req, res) => {
   if (!cartId || !productId || quantity === undefined) {
     return res.status(400).json({ message: "All fields are required" });
   }
+  if (quantity <= 0) {
+    return res.status(400).json({ message: "Quantity must be a positive number" });
+  }
 
   try {
     let cart = await Cart.findById(cartId);
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
+
     const productIdStr = productId.toString();
-    console.log(`Product ID to update: ${productIdStr}`);
     const itemIndex = cart.items.findIndex(
       (item) => item.productId.toString() === productIdStr
     );
+
     if (itemIndex === -1) {
       return res.status(404).json({ message: "Item not found in cart" });
     }
+
     const product = await Products.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
+
     cart.items[itemIndex].quantity = quantity;
     cart.items[itemIndex].price = product.price;
+
+    cart.totalAmount = cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
+
     await cart.save();
 
     res.status(200).json(cart);
   } catch (error) {
     console.error("Error updating cart:", error);
-    res
-      .status(500)
-      .json({ message: "Error updating cart", error: error.message });
+    res.status(500).json({ message: "Error updating cart", error: error.message });
   }
 };
+
 
 const removeCartItem = async (req, res) => {
   const { cartId, productId } = req.body;
