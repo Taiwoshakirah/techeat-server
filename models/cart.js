@@ -4,23 +4,40 @@ const cartSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-  },
-
-  productId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product",
     required: true,
   },
-
-  productName: {
-    type: String,
-    required: true,
-  },
-
-  quantity: {
+  items: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      },
+      productName: {
+        type: String,
+        required: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
+  totalAmount: {
     type: Number,
-    required: true,
+    default: 0,
+  },
+}, { timestamps: true });
+
+cartSchema.pre('save', function (next) {
+  if (this.isModified('items')) {
+    this.totalAmount = this.items.reduce((total, item) => total + item.price * item.quantity, 0);
   }
-}, {timestamps: true});
+  next();
+});
 
 module.exports = mongoose.model("Cart", cartSchema);
