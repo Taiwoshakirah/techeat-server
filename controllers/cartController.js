@@ -27,6 +27,8 @@ const addCart = async (req, res) => {
         return res.status(404).json({ message: "Product not found" });
       }
       item.price = product.price;
+      item.productName = product.name;
+      item.image = product.image;
       totalAmount += product.price * item.quantity;
     }
     const cart = new Cart({ userId, items, totalAmount });
@@ -39,6 +41,7 @@ const addCart = async (req, res) => {
       .json({ message: "Error creating cart", error: error.message });
   }
 };
+
 
 
 const viewCart = async (req, res) => {
