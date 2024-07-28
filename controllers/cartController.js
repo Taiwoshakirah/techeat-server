@@ -78,6 +78,7 @@ const viewCart = async (req, res) => {
       quantity: item.quantity,
       image: item.productId.image,
       price: item.productId.price,
+      totalPrice: item.productId.price * item.quantity,
     }));
 
     res.status(200).json({
