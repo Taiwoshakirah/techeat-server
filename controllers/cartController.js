@@ -71,21 +71,18 @@ const viewCart = async (req, res) => {
       return res.status(404).json({ message: "Cart not found" });
     }
 
-    // Format the response to avoid an array inside the cart
-    const formattedCart = cart.items.reduce((acc, item) => {
-      acc[item.productId._id] = {
-        productId: item.productId._id,
-        productName: item.productId.name,
-        quantity: item.quantity,
-        image: item.productId.image,
-        price: item.productId.price,
-      };
-      return acc;
-    }, {});
+    // Format the response to have a cart array
+    const formattedCart = cart.items.map(item => ({
+      productId: item.productId._id,
+      productName: item.productId.name,
+      quantity: item.quantity,
+      image: item.productId.image,
+      price: item.productId.price,
+    }));
 
     res.status(200).json({
       message: "Cart items retrieved successfully",
-      cart: formattedCart,
+      cart: formattedCart, // cart array containing objects
     });
   } catch (err) {
     console.error("Error retrieving cart items:", err);
