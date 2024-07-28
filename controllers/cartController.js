@@ -59,7 +59,9 @@ const viewCart = async (req, res) => {
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
+
     const formattedCart = cart.items.map(item => ({
+      itemId: item._id,
       productId: item.productId._id,
       productName: item.productId.name,
       quantity: item.quantity,
@@ -77,6 +79,7 @@ const viewCart = async (req, res) => {
     res.status(500).json({ message: "Error retrieving cart items", error: err.message });
   }
 };
+
 const updateCart = async (req, res) => {
   const { cartItemId } = req.params;
   const { quantity } = req.body;
@@ -90,23 +93,19 @@ const updateCart = async (req, res) => {
   }
 
   try {
-    // Find the cart containing the specified cart item
     const cart = await Cart.findOne({ "items._id": cartItemId });
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
-
     const itemIndex = cart.items.findIndex((item) => item._id.toString() === cartItemId);
     if (itemIndex === -1) {
       return res.status(404).json({ message: "Item not found in cart" });
     }
-
     const productId = cart.items[itemIndex].productId;
     const product = await Products.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-
     cart.items[itemIndex].quantity = quantity;
     cart.items[itemIndex].price = product.price;
     cart.items[itemIndex].image = product.image;
