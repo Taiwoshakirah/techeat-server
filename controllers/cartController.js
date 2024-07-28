@@ -82,14 +82,14 @@ const viewCart = async (req, res) => {
 
 const updateCart = async (req, res) => {
   const { cartItemId } = req.params;
-  const { quantity } = req.body;
+  const { action } = req.body;
 
-  if (!cartItemId || quantity === undefined) {
-    return res.status(400).json({ message: "Cart item ID and quantity are required" });
+  if (!cartItemId || !action) {
+    return res.status(400).json({ message: "Cart item ID and action are required" });
   }
 
-  if (quantity <= 0) {
-    return res.status(400).json({ message: "Quantity must be a positive number" });
+  if (action !== "increment" && action !== "decrement") {
+    return res.status(400).json({ message: "Invalid action" });
   }
 
   try {
@@ -101,15 +101,24 @@ const updateCart = async (req, res) => {
     if (itemIndex === -1) {
       return res.status(404).json({ message: "Item not found in cart" });
     }
+
     const productId = cart.items[itemIndex].productId;
     const product = await Products.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-    cart.items[itemIndex].quantity = quantity;
+
+    if (action === "increment") {
+      cart.items[itemIndex].quantity += 1;
+    } else if (action === "decrement") {
+      cart.items[itemIndex].quantity -= 1;
+      if (cart.items[itemIndex].quantity <= 0) {
+        return res.status(400).json({ message: "Quantity must be a positive number" });
+      }
+    }
+
     cart.items[itemIndex].price = product.price;
     cart.items[itemIndex].image = product.image;
-
     cart.totalAmount = cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
 
     await cart.save();
