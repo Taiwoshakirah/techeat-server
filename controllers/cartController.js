@@ -63,20 +63,35 @@ const viewCart = async (req, res) => {
   }
 
   try {
-    const cartItems = await Cart.find({ userId });
-    console.log("Retrieved cart items:", cartItems);
+    // Populate the productId within the items array
+    const cart = await Cart.findOne({ userId }).populate('items.productId');
+    console.log("Retrieved cart items:", cart);
+
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    // Format the response to avoid an array inside the cart
+    const formattedCart = cart.items.reduce((acc, item) => {
+      acc[item.productId._id] = {
+        productId: item.productId._id,
+        productName: item.productId.name,
+        quantity: item.quantity,
+        image: item.productId.image,
+        price: item.productId.price,
+      };
+      return acc;
+    }, {});
+
     res.status(200).json({
       message: "Cart items retrieved successfully",
-      cart: cartItems,
+      cart: formattedCart,
     });
   } catch (err) {
     console.error("Error retrieving cart items:", err);
-    res
-      .status(500)
-      .json({ message: "Error retrieving cart items", error: err.message });
+    res.status(500).json({ message: "Error retrieving cart items", error: err.message });
   }
 };
-
 const updateCart = async (req, res) => {
   const { cartId, productId, quantity } = req.body;
 
