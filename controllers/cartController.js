@@ -1,44 +1,53 @@
-const mongoose = require("mongoose");
+
 const axios = require("axios");
-const Cart = require("../models/cart");
+const Cart = require('../models/cart')
 const Products = require("../models/product");
 
 const PAYSTACK_BASE_URL = "https://api.paystack.co";
 
+
 const addCart = async (req, res) => {
-  const { userId, items } = req.body;
-  if (!userId || !items || !Array.isArray(items)) {
-    return res
-      .status(400)
-      .json({ message: "All fields are required and items must be an array" });
+  const { userId, productId, quantity } = req.body;
+
+  if (!userId || !productId || !quantity) {
+    return res.status(400).json({ message: "All fields are required." });
   }
 
   try {
-    let totalAmount = 0;
-    for (let item of items) {
-      if (!mongoose.Types.ObjectId.isValid(item.productId)) {
-        return res
-          .status(400)
-          .json({ message: `Invalid productId format: ${item.productId}` });
-      }
-
-      const product = await Products.findById(item.productId);
-      if (!product) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-      item.price = product.price;
-      item.productName = product.name;
-      item.image = product.image;
-      totalAmount += product.price * item.quantity;
+    // Find the product
+    const product = await Products.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found." });
     }
-    const cart = new Cart({ userId, items, totalAmount });
+
+    // Find the user's cart or create a new one
+    let cart = await Cart.findOne({ userId });
+    if (!cart) {
+      cart = new Cart({ userId, items: [] });
+    }
+
+    // Check if the product already exists in the cart
+    const itemIndex = cart.items.findIndex((item) => item.productId.toString() === productId);
+    if (itemIndex > -1) {
+      // Update quantity if product exists
+      cart.items[itemIndex].quantity += parseInt(quantity, 10);
+    } else {
+      // Add new product to items
+      cart.items.push({
+        productId,
+        quantity: parseInt(quantity, 10),
+        image: product.image,
+        price: product.price,
+      });
+    }
+
+    // Save the cart
     await cart.save();
 
-    res.status(201).json(cart);
+    res.status(200).json({ message: "Product added to cart successfully.", cart });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error creating cart", error: error.message });
+    console.error("Error adding to cart:", error);
+    res.status(500).json({ message: "An error occurred while adding to cart." });
   }
 };
 
@@ -97,9 +106,9 @@ const updateCart = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-
     cart.items[itemIndex].quantity = quantity;
     cart.items[itemIndex].price = product.price;
+    cart.items[itemIndex].image = product.image;
 
     cart.totalAmount = cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -111,6 +120,7 @@ const updateCart = async (req, res) => {
     res.status(500).json({ message: "Error updating cart", error: error.message });
   }
 };
+
 
 
 const removeCartItem = async (req, res) => {
