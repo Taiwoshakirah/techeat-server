@@ -1,4 +1,4 @@
-// models/cart.js
+
 const mongoose = require("mongoose");
 
 const cartSchema = new mongoose.Schema(
@@ -12,7 +12,7 @@ const cartSchema = new mongoose.Schema(
       {
         productId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Products", // Corrected to 'Products'
+          ref: "Products", 
           required: true,
         },
         quantity: {
@@ -37,7 +37,6 @@ const cartSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Update totalAmount before saving the cart
 cartSchema.pre("save", function (next) {
   if (this.isModified("items")) {
     this.totalAmount = this.items.reduce(

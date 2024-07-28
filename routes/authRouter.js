@@ -5,6 +5,7 @@ const {
   getUser,
   forgotPassword,
   resetPassword,
+  logout,
 } = require("../controllers/authController");
 const methodNotAllowed = require("../utils/notAllowed");
 const authenticateToken = require("../middlewares/verifytoken");
@@ -18,5 +19,6 @@ router
   .route("/reset-password/:token")
   .post(resetPassword)
   .all(methodNotAllowed);
+router.route('/logout').post(logout).all(methodNotAllowed)
 
 module.exports = router;

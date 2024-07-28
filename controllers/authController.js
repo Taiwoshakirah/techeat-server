@@ -164,10 +164,19 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
+// controllers/logout.js
+const logout = (req, res) => {
+  res.clearCookie("token"); // Clear the JWT token cookie
+  res.status(200).json({ message: "Successfully logged out" });
+};
+
+
+
 module.exports = {
   registerUser,
   signInUser,
   getUser,
   forgotPassword,
   resetPassword,
+  logout
 };
