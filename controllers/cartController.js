@@ -25,19 +25,23 @@ const addCart = async (req, res) => {
     }
 
     const itemIndex = cart.items.findIndex((item) => item.productId.toString() === productId);
+    let addedItem;
+
     if (itemIndex > -1) {
       cart.items[itemIndex].quantity += parseInt(quantity, 10);
+      addedItem = cart.items[itemIndex];
     } else {
-      cart.items.push({
+      addedItem = {
         productId,
         quantity: parseInt(quantity, 10),
         image: product.image,
         price: product.price,
-      });
+      };
+      cart.items.push(addedItem);
     }
 
     await cart.save();
-    res.status(200).json({ items: cart.items });
+    res.status(200).json({ addedItem });
   } catch (error) {
     console.error("Error adding to cart:", error);
     res.status(500).json({ message: "An error occurred while adding to cart." });
