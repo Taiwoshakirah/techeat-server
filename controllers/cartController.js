@@ -18,23 +18,30 @@ const addCart = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product not found." });
     }
+
     let cart = await Cart.findOne({ userId });
     if (!cart) {
       cart = new Cart({ userId, items: [] });
     }
+
     const itemIndex = cart.items.findIndex((item) => item.productId.toString() === productId);
+    let addedItem;
+
     if (itemIndex > -1) {
       cart.items[itemIndex].quantity += parseInt(quantity, 10);
+      addedItem = cart.items[itemIndex];
     } else {
-      cart.items.push({
+      addedItem = {
         productId,
         quantity: parseInt(quantity, 10),
         image: product.image,
         price: product.price,
-      });
+      };
+      cart.items.push(addedItem);
     }
+
     await cart.save();
-    res.status(200).json({ message: "Product added to cart successfully.", cart });
+    res.status(200).json({ addedItem });
   } catch (error) {
     console.error("Error adding to cart:", error);
     res.status(500).json({ message: "An error occurred while adding to cart." });
