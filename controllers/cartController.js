@@ -140,28 +140,19 @@ const updateCart = async (req, res) => {
 
 
 const removeCartItem = async (req, res) => {
-  const { cartId, productId } = req.body;
+  const { itemId } = req.body;
 
-  if (!cartId || !productId) {
-    return res
-      .status(400)
-      .json({ message: "cartId and productId are required" });
+  if (!itemId) {
+    return res.status(400).json({ message: "itemId is required" });
   }
 
   try {
-    let cart = await Cart.findById(cartId);
+    let cart = await Cart.findOne({ "items._id": itemId });
     if (!cart) {
-      return res.status(404).json({ message: "Cart not found" });
+      return res.status(404).json({ message: "Cart or item not found" });
     }
-    const productIdStr = productId.toString();
-    console.log(`Product ID to remove: ${productIdStr}`);
-    const itemIndex = cart.items.findIndex(
-      (item) => item.productId.toString() === productIdStr
-    );
-    if (itemIndex === -1) {
-      return res.status(404).json({ message: "Item not found in cart" });
-    }
-    cart.items.splice(itemIndex, 1);
+    cart.items = cart.items.filter((item) => item._id.toString() !== itemId);
+
     await cart.save();
 
     res.status(200).json(cart);
