@@ -1,10 +1,8 @@
-
 const axios = require("axios");
-const Cart = require('../models/cart')
+const Cart = require("../models/cart");
 const Products = require("../models/product");
 
 const PAYSTACK_BASE_URL = "https://api.paystack.co";
-
 
 const addCart = async (req, res) => {
   const { userId, productId, quantity } = req.body;
@@ -24,7 +22,9 @@ const addCart = async (req, res) => {
       cart = new Cart({ userId, items: [] });
     }
 
-    const itemIndex = cart.items.findIndex((item) => item.productId.toString() === productId);
+    const itemIndex = cart.items.findIndex(
+      (item) => item.productId.toString() === productId
+    );
     let addedItem;
 
     if (itemIndex > -1) {
@@ -44,11 +44,11 @@ const addCart = async (req, res) => {
     res.status(200).json({ addedItem });
   } catch (error) {
     console.error("Error adding to cart:", error);
-    res.status(500).json({ message: "An error occurred while adding to cart." });
+    res
+      .status(500)
+      .json({ message: "An error occurred while adding to cart." });
   }
 };
-
-
 
 const viewCart = async (req, res) => {
   const { userId } = req.params;
@@ -60,14 +60,14 @@ const viewCart = async (req, res) => {
   }
 
   try {
-    const cart = await Cart.findOne({ userId }).populate('items.productId');
+    const cart = await Cart.findOne({ userId }).populate("items.productId");
     console.log("Retrieved cart items:", cart);
 
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
 
-    const formattedCart = cart.items.map(item => ({
+    const formattedCart = cart.items.map((item) => ({
       itemId: item._id,
       productId: item.productId._id,
       productName: item.productId.name,
@@ -79,11 +79,13 @@ const viewCart = async (req, res) => {
 
     res.status(200).json({
       message: "Cart items retrieved successfully",
-      cart: formattedCart, 
+      cart: formattedCart,
     });
   } catch (err) {
     console.error("Error retrieving cart items:", err);
-    res.status(500).json({ message: "Error retrieving cart items", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error retrieving cart items", error: err.message });
   }
 };
 
@@ -92,7 +94,9 @@ const updateCart = async (req, res) => {
   const { action } = req.body;
 
   if (!cartItemId || !action) {
-    return res.status(400).json({ message: "Cart item ID and action are required" });
+    return res
+      .status(400)
+      .json({ message: "Cart item ID and action are required" });
   }
 
   if (action !== "increment" && action !== "decrement") {
@@ -104,7 +108,9 @@ const updateCart = async (req, res) => {
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
-    const itemIndex = cart.items.findIndex((item) => item._id.toString() === cartItemId);
+    const itemIndex = cart.items.findIndex(
+      (item) => item._id.toString() === cartItemId
+    );
     if (itemIndex === -1) {
       return res.status(404).json({ message: "Item not found in cart" });
     }
@@ -120,24 +126,29 @@ const updateCart = async (req, res) => {
     } else if (action === "decrement") {
       cart.items[itemIndex].quantity -= 1;
       if (cart.items[itemIndex].quantity <= 0) {
-        return res.status(400).json({ message: "Quantity must be a positive number" });
+        return res
+          .status(400)
+          .json({ message: "Quantity must be a positive number" });
       }
     }
 
     cart.items[itemIndex].price = product.price;
     cart.items[itemIndex].image = product.image;
-    cart.totalAmount = cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
+    cart.totalAmount = cart.items.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
 
     await cart.save();
 
     res.status(200).json(cart);
   } catch (error) {
     console.error("Error updating cart:", error);
-    res.status(500).json({ message: "Error updating cart", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating cart", error: error.message });
   }
 };
-
-
 
 const removeCartItem = async (req, res) => {
   const { itemId } = req.body;
@@ -215,6 +226,7 @@ const verifyPayment = async (req, res) => {
   const { reference } = req.params;
 
   try {
+    console.log(`Verifying payment for reference: ${reference}`);
     const response = await axios.get(
       `${PAYSTACK_BASE_URL}/transaction/verify/${reference}`,
       {
@@ -223,6 +235,8 @@ const verifyPayment = async (req, res) => {
         },
       }
     );
+
+    console.log("Paystack Response:", response.data);
 
     if (
       response.data &&
@@ -240,11 +254,31 @@ const verifyPayment = async (req, res) => {
       });
     }
   } catch (error) {
+    console.error("Error verifying payment:", error);
     res.status(500).json({
       message: "Error verifying payment",
       error: error.response ? error.response.data : error.message,
     });
   }
+};
+
+
+
+const handleWebhook = (req, res) => {
+  const event = req.body;
+  console.log("Webhook event received:", event);
+  switch (event.event) {
+    case "charge.success":
+      console.log("Payment successful:", event.data);
+      break;
+    case "charge.failed":
+      console.log("Payment failed:", event.data);
+      break;
+    default:
+      console.log(`Unhandled event type: ${event.event}`);
+  }
+
+  res.sendStatus(200);
 };
 
 module.exports = {
@@ -254,4 +288,5 @@ module.exports = {
   removeCartItem,
   initializePayment,
   verifyPayment,
+  handleWebhook
 };

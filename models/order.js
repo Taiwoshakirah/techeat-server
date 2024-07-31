@@ -28,6 +28,17 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: Number,
+      required: true,
+    },
+    deliveryAddress: {
+      type: String,
+    },
     status: {
       type: String,
       enum: ["pending", "processing", "shippped", "delivered", "canceled"],
