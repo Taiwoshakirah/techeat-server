@@ -5,8 +5,8 @@ const Products = require('../models/product')
 
 const createOrder = async (req, res) => {
   try {
-    const { userId, items, total } = req.body;
-    const newOrder = new Order({ userId, items, total });
+    const { userId, items, total,name,phoneNumber,deliveryAddress } = req.body;
+    const newOrder = new Order({ userId, items, total,name,phoneNumber,deliveryAddress });
     const order = await newOrder.save();
     res.status(201).json(order);
   } catch (error) {
@@ -35,15 +35,18 @@ const getUserOrders = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
+
     const orders = await Order.find({ userId })
       .populate({
         path: 'items.productId',
-        model: 'Products', 
-        select: 'name price' 
+        model: 'Products', // Ensure this matches the name of your model
+        select: 'name price'
       });
+
     if (!orders || orders.length === 0) {
       return res.status(404).json({ error: 'No orders found for this user' });
     }
+
     const response = {
       user: {
         id: user._id,
@@ -54,14 +57,25 @@ const getUserOrders = async (req, res) => {
         id: order._id,
         orderDate: order.createdAt,
         status: order.status,
-        products: order.items.map(item => ({
-          id: item.productId._id,
-          name: item.productId.name,
-          price: item.productId.price,
-          quantity: item.quantity,
-          status: item.status
-        })),
-        
+        products: order.items.map(item => {
+          if (!item.productId) {
+            console.warn('Missing productId for item:', item);
+            return {
+              id: null,
+              name: 'Unknown Product',
+              price: 0,
+              quantity: item.quantity,
+              status: item.status
+            };
+          }
+          return {
+            id: item.productId._id,
+            name: item.productId.name,
+            price: item.productId.price,
+            quantity: item.quantity,
+            status: item.status
+          };
+        }),
       })),
     };
 
