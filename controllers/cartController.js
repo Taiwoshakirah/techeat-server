@@ -1,6 +1,7 @@
 const axios = require("axios");
 const Cart = require("../models/cart");
 const Products = require("../models/product");
+const mongoose = require("mongoose");
 
 const PAYSTACK_BASE_URL = "https://api.paystack.co";
 
@@ -88,6 +89,45 @@ const viewCart = async (req, res) => {
       .json({ message: "Error retrieving cart items", error: err.message });
   }
 };
+
+const fetchItem = async (req, res) => {
+  const { userId, productId } = req.query;
+
+  if (!userId || !productId) {
+    return res
+      .status(400)
+      .json({ message: "userId and productId are required" });
+  }
+
+  try {
+    const cart = await Cart.findOne({ userId });
+
+    if (!cart) {
+      console.log(`Cart not found for userId: ${userId}`);
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    console.log(`Cart found for userId: ${userId}`, cart);
+    const productIdObj = new mongoose.Types.ObjectId(productId);
+    const item = cart.items.find((item) => item.productId.equals(productIdObj));
+
+    if (!item) {
+      console.log(
+        `Item with productId: ${productId} not found in cart`,
+        cart.items
+      );
+      return res.status(404).json({ message: "Item not found in cart" });
+    }
+
+    const totalPrice = item.quantity * item.price;
+    console.log(`Item found:`, item);
+    return res.status(200).json({ ...item.toObject(), totalPrice });
+  } catch (error) {
+    console.error("Error fetching item:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
 
 const updateCart = async (req, res) => {
   const { cartItemId } = req.params;
@@ -262,8 +302,6 @@ const verifyPayment = async (req, res) => {
   }
 };
 
-
-
 const handleWebhook = (req, res) => {
   const event = req.body;
   console.log("Webhook event received:", event);
@@ -284,9 +322,10 @@ const handleWebhook = (req, res) => {
 module.exports = {
   addCart,
   viewCart,
+  fetchItem,
   updateCart,
   removeCartItem,
   initializePayment,
   verifyPayment,
-  handleWebhook
+  handleWebhook,
 };
