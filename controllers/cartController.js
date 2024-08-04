@@ -215,6 +215,22 @@ const removeCartItem = async (req, res) => {
   }
 };
 
+const clearCart =async (req,res)=>{
+  try {
+    const { userId } = req;
+
+    await Cart.findOneAndUpdate({ userId }, { items: [] });
+
+    res.status(200).json({ message: "Cart cleared successfully." });
+  } catch (error) {
+    console.error("Error clearing cart:", error);
+    res.status(500).json({ message: "Failed to clear cart." });
+  }
+};
+
+
+
+
 const initializePayment = async (req, res) => {
   const { userId, email } = req.body;
 
@@ -325,6 +341,7 @@ module.exports = {
   fetchItem,
   updateCart,
   removeCartItem,
+  clearCart,
   initializePayment,
   verifyPayment,
   handleWebhook,
