@@ -128,7 +128,6 @@ const fetchItem = async (req, res) => {
   }
 };
 
-
 const updateCart = async (req, res) => {
   const { cartItemId } = req.params;
   const { action } = req.body;
@@ -215,7 +214,7 @@ const removeCartItem = async (req, res) => {
   }
 };
 
-const clearCart =async (req,res)=>{
+const clearCart = async (req, res) => {
   try {
     const { userId } = req;
 
@@ -227,9 +226,6 @@ const clearCart =async (req,res)=>{
     res.status(500).json({ message: "Failed to clear cart." });
   }
 };
-
-
-
 
 const initializePayment = async (req, res) => {
   const { userId, email } = req.body;
