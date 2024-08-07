@@ -229,23 +229,16 @@ const clearCart = async (req, res) => {
 
 const initializePayment = async (req, res) => {
   const { userId, email } = req.body;
-
   try {
     const cart = await Cart.findOne({ userId });
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
-
-    console.log("Cart object:", cart);
     const totalAmount = cart.totalAmount || 0;
-    console.log("Total Amount:", totalAmount);
-
     if (typeof totalAmount !== "number" || totalAmount <= 0) {
       return res.status(400).json({ message: "Invalid cart total amount" });
     }
-
     const amountInKobo = totalAmount * 100;
-
     const data = {
       email: email,
       amount: amountInKobo,
@@ -253,12 +246,10 @@ const initializePayment = async (req, res) => {
         userId: userId,
       },
     };
-
     const headers = {
       Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
       "Content-Type": "application/json",
     };
-
     const response = await axios.post(
       `${PAYSTACK_BASE_URL}/transaction/initialize`,
       data,
