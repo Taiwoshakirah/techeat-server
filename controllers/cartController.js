@@ -227,6 +227,7 @@ const clearCart = async (req, res) => {
   }
 };
 
+
 const initializePayment = async (req, res) => {
   const { userId, email } = req.body;
   try {
